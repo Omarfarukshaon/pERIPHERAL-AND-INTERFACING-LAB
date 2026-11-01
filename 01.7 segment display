@@ -1,0 +1,181 @@
+//to display all 0-f
+
+
+.MODEL SMALL
+.STACK 100H
+
+.DATA
+    PORT_A EQU 00H
+    CTRL_REG EQU 06H
+
+    TABLE DB 03FH, 006H, 05BH, 04FH
+          DB 066H, 06DH, 07DH, 007H
+          DB 07FH, 06FH, 077H, 07CH
+          DB 039H, 05EH, 079H, 071H
+
+.CODE
+MAIN PROC
+    MOV AX, @DATA
+    MOV DS, AX
+
+    MOV AL, 80H
+    OUT CTRL_REG, AL
+
+AGAIN:
+    LEA SI, TABLE
+    MOV CX, 16
+
+NEXT:
+    MOV AL, [SI]
+    OUT PORT_A, AL
+    CALL DELAY
+
+
+	ADD SI,1
+    LOOP NEXT
+
+    JMP AGAIN
+
+MAIN ENDP
+
+DELAY PROC
+    PUSH CX
+    PUSH DX
+
+    MOV DX, 5
+L1:
+    MOV CX, 0FFFFH
+L2:
+    LOOP L2
+    DEC DX
+    JNZ L1
+
+    POP DX
+    POP CX
+    RET
+DELAY ENDP
+
+END MAIN
+
+
+
+// to display odd (0-F) 
+
+
+.MODEL SMALL
+.STACK 100H
+
+.DATA
+    PORT_A EQU 00H
+    CTRL_REG EQU 06H
+
+    TABLE DB 03FH, 006H, 05BH, 04FH
+          DB 066H, 06DH, 07DH, 007H
+          DB 07FH, 06FH, 077H, 07CH
+          DB 039H, 05EH, 079H, 071H
+
+.CODE
+MAIN PROC
+    MOV AX, @DATA
+    MOV DS, AX
+
+    MOV AL, 80H
+    OUT CTRL_REG, AL
+
+AGAIN:
+    LEA SI, TABLE+1
+    MOV CX, 8
+
+NEXT:
+    MOV AL, [SI]
+    OUT PORT_A, AL
+    CALL DELAY
+
+
+	ADD SI,2
+    LOOP NEXT
+
+    JMP AGAIN
+
+MAIN ENDP
+
+DELAY PROC
+    PUSH CX
+    PUSH DX
+
+    MOV DX, 5
+L1:
+    MOV CX, 0FFFFH
+L2:
+    LOOP L2
+    DEC DX
+    JNZ L1
+
+    POP DX
+    POP CX
+    RET
+DELAY ENDP
+
+END MAIN
+
+
+//to display even (0-F)
+
+
+.MODEL SMALL
+.STACK 100H
+
+.DATA
+    PORT_A EQU 00H
+    CTRL_REG EQU 06H
+
+    TABLE DB 03FH, 006H, 05BH, 04FH
+          DB 066H, 06DH, 07DH, 007H
+          DB 07FH, 06FH, 077H, 07CH
+          DB 039H, 05EH, 079H, 071H
+
+.CODE
+MAIN PROC
+    MOV AX, @DATA
+    MOV DS, AX
+
+    MOV AL, 80H
+    OUT CTRL_REG, AL
+
+AGAIN:
+    LEA SI, TABLE
+    MOV CX, 8
+
+NEXT:
+    MOV AL, [SI]
+    OUT PORT_A, AL
+    CALL DELAY
+
+
+	ADD SI,2
+    LOOP NEXT
+
+    JMP AGAIN
+
+MAIN ENDP
+
+DELAY PROC
+    PUSH CX
+    PUSH DX
+
+    MOV DX, 5
+L1:
+    MOV CX, 0FFFFH
+L2:
+    LOOP L2
+    DEC DX
+    JNZ L1
+
+    POP DX
+    POP CX
+    RET
+DELAY ENDP
+
+END MAIN
+
+
